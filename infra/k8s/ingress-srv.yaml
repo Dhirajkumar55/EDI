@@ -1,0 +1,82 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-service
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/use-regex: "true"
+spec:
+  rules:
+    - host: edi-spec.dev  
+      http:
+        paths:
+          - path: /api/auth/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: auth-srv
+                port:
+                  number: 3000
+          - path: /api/version/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: version-srv
+                port:
+                  number: 3000
+          - path: /api/agency/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: agency-srv
+                port:
+                  number: 3000
+          - path: /api/?(code|elementUsageDefs)/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: element-usage-srv
+                port:
+                  number: 3000
+          - path: /api/transactionSet/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: transaction-set-srv
+                port:
+                  number: 3000
+          - path: /api/(segmentUsage|segmentDescription)/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: segment-desc-usage-srv
+                port:
+                  number: 3000
+          - path: /api/pdf/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: pdf-srv
+                port:
+                  number: 3000
+          - path: /api/ediLog/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: log-srv
+                port:
+                  number: 3000
+          - path: /api/edi/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: draft-srv
+                port:
+                  number: 3000
+          - path: /?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: client-srv
+                port:
+                  number: 3000

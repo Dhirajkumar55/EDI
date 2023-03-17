@@ -1,0 +1,90 @@
+apiVersion: skaffold/v2alpha3
+kind: Config
+deploy:
+  kubectl:
+    manifests:
+      - ./infra/k8s/*
+build:
+  local:
+    push: false
+  artifacts:
+    - image: dhiruch7029/edi-auth
+      context: EDI-auth
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "./**/*.js"
+            dest: .
+    - image: dhiruch7029/version
+      context: version
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "src/**/*.js"
+            dest: .
+    - image: dhiruch7029/segment-desc-usage
+      context: segment-description-usage
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "src/**/*.js"
+            dest: .
+    - image: dhiruch7029/agency
+      context: EDI-Agency
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "src/**/*.js"
+            dest: .
+    - image: dhiruch7029/element-usage
+      context: EDI-ElementUsageDefs
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "src/**/*.js"
+            dest: .
+    - image: dhiruch7029/transaction-set
+      context: EDI-TransactionSet
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "src/**/*.js"
+            dest: .
+    - image: dhiruch7029/pdf
+      context: pdfservice
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "src/**/*.js"
+            dest: .
+    - image: dhiruch7029/edi-log
+      context: EDILogService
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "src/**/*.js"
+            dest: .
+    - image: dhiruch7029/edi-draft
+      context: EDIDraftService
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "src/**/*.js"
+            dest: .
+    - image: dhiruch7029/edi-client
+      context: EDI_frontend
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "./**/*.js"
+            dest: .

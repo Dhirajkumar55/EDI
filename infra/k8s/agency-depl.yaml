@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: agency-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: agency
+  template:
+    metadata:
+      labels:
+        app: agency
+    spec:
+      containers:
+        - name: agency
+          image: dhiruch7029/agency
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: agency-srv
+spec:
+  selector:
+    app: agency
+  ports:
+    - name: agency
+      protocol: TCP
+      port: 3000
+      targetPort: 3000

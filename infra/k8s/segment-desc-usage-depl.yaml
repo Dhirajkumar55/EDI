@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: segment-desc-usage-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: segment-desc-usage
+  template:
+    metadata:
+      labels:
+        app: segment-desc-usage
+    spec:
+      containers:
+        - name: segment-desc-usage
+          image: dhiruch7029/segment-desc-usage
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: segment-desc-usage-srv
+spec:
+  selector:
+    app: segment-desc-usage
+  ports:
+    - name: segment-desc-usage
+      protocol: TCP
+      port: 3000
+      targetPort: 3000

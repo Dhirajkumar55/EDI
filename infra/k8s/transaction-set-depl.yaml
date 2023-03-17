@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: transaction-set-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: transaction-set
+  template:
+    metadata:
+      labels:
+        app: transaction-set
+    spec:
+      containers:
+        - name: transaction-set
+          image: dhiruch7029/transaction-set
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: transaction-set-srv
+spec:
+  selector:
+    app: transaction-set
+  ports:
+    - name: transaction-set
+      protocol: TCP
+      port: 3000
+      targetPort: 3000

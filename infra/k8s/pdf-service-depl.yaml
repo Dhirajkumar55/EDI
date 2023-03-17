@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pdf-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pdf
+  template:
+    metadata:
+      labels:
+        app: pdf
+    spec:
+      containers:
+        - name: pdf
+          image: dhiruch7029/pdf
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pdf-srv
+spec:
+  selector:
+    app: pdf
+  ports:
+    - name: pdf
+      protocol: TCP
+      port: 3000
+      targetPort: 3000

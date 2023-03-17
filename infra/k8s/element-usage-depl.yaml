@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: element-usage-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: element-usage
+  template:
+    metadata:
+      labels:
+        app: element-usage
+    spec:
+      containers:
+        - name: element-usage
+          image: dhiruch7029/element-usage
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: element-usage-srv
+spec:
+  selector:
+    app: element-usage
+  ports:
+    - name: element-usage
+      protocol: TCP
+      port: 3000
+      targetPort: 3000

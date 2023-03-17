@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: log-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: log
+  template:
+    metadata:
+      labels:
+        app: log
+    spec:
+      containers:
+        - name: log
+          image: dhiruch7029/edi-log
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: log-srv
+spec:
+  selector:
+    app: log
+  ports:
+    - name: log
+      protocol: TCP
+      port: 3000
+      targetPort: 3000

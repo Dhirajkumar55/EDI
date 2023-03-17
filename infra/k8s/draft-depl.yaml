@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: draft-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: draft
+  template:
+    metadata:
+      labels:
+        app: draft
+    spec:
+      containers:
+        - name: draft
+          image: dhiruch7029/edi-draft
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: draft-srv
+spec:
+  selector:
+    app: draft
+  ports:
+    - name: draft
+      protocol: TCP
+      port: 3000
+      targetPort: 3000
