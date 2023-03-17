@@ -14,8 +14,8 @@ passport.deserializeUser(async function(user, done) {
 });
 
 passport.use(new GoogleStrategy({
-        clientID:"112305536504-h9mh6ej2d53nl3qjr5gust9m0v2nal9k.apps.googleusercontent.com",
-        clientSecret:"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",
+        clientID:"Please add your client ID from google sdk",
+        clientSecret:"Please add your clientSecret from google sdk",
         callbackURL: "https://edi-spec.dev/api/auth/callback",
     },
     async function(request, accessToken, refreshToken, profile, done) {
